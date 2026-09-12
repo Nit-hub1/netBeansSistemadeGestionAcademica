@@ -4,23 +4,23 @@
  */
 package logica.entidades;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 /**
  *
  * @author iamx2
  */
-public class Usuario {
+public abstract class Usuario {
     private String nombre;
     private String apellido;
     private String ci;
     private String pwHash;
-    private String correo;
     
-    public Usuario (String nom, String ape, String cedula, String pw, String mail){
+    public Usuario (String nom, String ape, String cedula, String pw){
         nombre = nom;
         apellido = ape;
         ci = cedula;
-        pwHash = pw;
-        correo = mail;
+        pwHash = BCrypt.hashpw(pw, BCrypt.gensalt());
     }
 
     public String getNombre() {
@@ -55,11 +55,9 @@ public class Usuario {
         this.pwHash = pwHash;
     }
 
-    public String getCorreo() {
-        return correo;
+    public boolean validarPw(String pw){
+        return BCrypt.checkpw(pw, pwHash);
     }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }    
+    
+    public abstract String getRol();
 }

@@ -10,5 +10,6 @@ import org.mariadb.jdbc.Driver;
  */
 public class ConexionBD {
     
+    private static ConexionBD instancia;
     
 }

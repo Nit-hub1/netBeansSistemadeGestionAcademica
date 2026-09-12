@@ -8,6 +8,14 @@ package logica.entidades;
  *
  * @author iamx2
  */
-public class Docentes {
+public class Estudiante extends Usuario{
     
+    public Estudiante (String nom, String ape, String cedula, String pw){
+        super(nom, ape, cedula, pw);
+    }
+    
+    @Override
+    public String getRol(){
+        return "Estudiante";
+    }
 }

@@ -4,6 +4,9 @@
  */
 package gui_visual;
 
+import javax.swing.JOptionPane;
+import fachada.Fachada;
+import logica.entidades.*;
 /**
  *
  * @author iamx2
@@ -11,14 +14,37 @@ package gui_visual;
 public class Ventana extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Ventana.class.getName());
-
+    private Fachada fachada;
     /**
      * Creates new form Ventana
      */
     public Ventana() {
         initComponents();
+        disenioFlatLaf();
+        fachada = new Fachada();
     }
-
+    
+    private void disenioFlatLaf (){
+        //BOTONES REDONDOS
+        btnFlatLaf(btnLogin, "INICIAR SESION");
+        btnFlatLaf(btnRegister, "REGISTRARSE");
+        //PLACEHOLDERS PARA LOS FIELDS
+        txtUsuario.putClientProperty(com.formdev.flatlaf.FlatClientProperties.PLACEHOLDER_TEXT, "EJ: 54461593");
+        txtUsuario.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE, "placeholderForeground: #444444");
+        txtPassword.putClientProperty(com.formdev.flatlaf.FlatClientProperties.PLACEHOLDER_TEXT, "EJ: CONTRASEÑA123");
+        txtPassword.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE,"placeholderForeground: #444444");
+        //BTN SWITCH PARA LA PW
+        tbMostrarPw.putClientProperty(com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE, com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        tbMostrarPw.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE,"arc: 999; minimumWidth: 45");
+    }
+    
+    private void btnFlatLaf(javax.swing.JButton btn, String texto){
+        btn.setText(texto);
+        btn.setBackground(new java.awt.Color(50, 50, 50));
+        btn.setForeground(java.awt.Color.WHITE);
+        btn.putClientProperty(com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE, com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        btn.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE, "arc: 999");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,13 +61,16 @@ public class Ventana extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        btnLogin = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
+        tbMostrarPw = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPGeneral.setBackground(new java.awt.Color(255, 255, 255));
+        jPGeneral.setBackground(java.awt.Color.lightGray);
 
         jPBorder.setBackground(java.awt.Color.black);
 
@@ -71,25 +100,35 @@ public class Ventana extends javax.swing.JFrame {
         jLabel3.setText("TALLER INTEGRADOR EN SISTEMAS");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jPanel1.setBackground(java.awt.Color.white);
+        jPanel1.setBackground(java.awt.Color.lightGray);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
         jLabel4.setForeground(java.awt.Color.black);
-        jLabel4.setText("USUARIO:");
+        jLabel4.setText("USUARIO (CI):");
 
-        jTextField1.setBackground(java.awt.Color.white);
-        jTextField1.setForeground(java.awt.Color.black);
-        jTextField1.setToolTipText("");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtUsuario.setBackground(java.awt.Color.gray);
+        txtUsuario.setForeground(java.awt.Color.black);
+        txtUsuario.setToolTipText("");
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
         jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("CONTRASEÑA:");
 
-        jTextField2.setBackground(java.awt.Color.white);
-        jTextField2.setForeground(java.awt.Color.black);
-        jTextField2.setToolTipText("");
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        txtPassword.setBackground(java.awt.Color.gray);
+        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        btnLogin.setBackground(java.awt.Color.darkGray);
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLogin.setText("Iniciar Sesion");
+        btnLogin.addActionListener(this::btnLoginActionPerformed);
+
+        btnRegister.setBackground(java.awt.Color.darkGray);
+        btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegister.setText("Registrarse");
+
+        tbMostrarPw.setBackground(java.awt.Color.darkGray);
+        tbMostrarPw.addActionListener(this::tbMostrarPwActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,13 +137,19 @@ public class Ventana extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
+                    .addComponent(txtUsuario)
+                    .addComponent(txtPassword)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 204, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnLogin)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegister)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addComponent(tbMostrarPw, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -113,12 +158,21 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLogin)
+                            .addComponent(btnRegister)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(tbMostrarPw, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPGeneralLayout = new javax.swing.GroupLayout(jPGeneral);
@@ -158,15 +212,47 @@ public class Ventana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbMostrarPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbMostrarPwActionPerformed
+        if (tbMostrarPw.isSelected()) {
+            txtPassword.setEchoChar((char) 0);
+        } else {
+            txtPassword.setEchoChar('•');
+        }
+    }//GEN-LAST:event_tbMostrarPwActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        String ci = txtUsuario.getText().trim();
+        String pw = txtPassword.getText().trim();
+        
+        //VENTANA POR SI EL USUARIO NO INGRESA DATOS
+        if(ci.isEmpty() || pw.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Completar todos los campos", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+       Usuario userLogueado = fachada.login(ci, pw);
+       
+       if(userLogueado != null){
+           JOptionPane.showMessageDialog(this, 
+                   "Bienvenido/a" + userLogueado.getRol() + 
+                   "\n" + userLogueado.getNombre() + 
+                   "\nLogin Exitoso");
+       }else{
+           JOptionPane.showMessageDialog(this, "El usuario ingresado es incorrecto", "Error",JOptionPane.ERROR_MESSAGE);
+       }
+       
+       
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,23 +263,27 @@ public class Ventana extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        com.formdev.flatlaf.FlatLightLaf.setup(); // LIBRERIA PARA EL DISEÑO DE LOS PLACEHOLDERS
+        
+        //try {
+            //for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                //if ("Nimbus".equals(info.getName())) {
+                    //javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    //break;
+                //}
+            //}
+        //} //catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            //logger.log(java.util.logging.Level.SEVERE, null, ex);
+        //}
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Ventana().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -202,7 +292,8 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel jPBorder;
     private javax.swing.JPanel jPGeneral;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JToggleButton tbMostrarPw;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
