@@ -4,6 +4,9 @@
  */
 package gui_visual;
 
+import fachada.SistemadeGestionAcademica;
+import logica.entidades.Usuario;
+
 /**
  *
  * @author iamx2
@@ -30,14 +33,15 @@ public class Ventana extends javax.swing.JFrame {
 
         jPGeneral = new javax.swing.JPanel();
         jPBorder = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblSGA = new javax.swing.JLabel();
+        lblSGAdescripcion = new javax.swing.JLabel();
+        lblTaller = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        lblUsuario = new javax.swing.JLabel();
+        CampoUsuario = new javax.swing.JTextField();
+        lblContraseña = new javax.swing.JLabel();
+        Login = new javax.swing.JButton();
+        CampoContrasenia = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,40 +60,33 @@ public class Ventana extends javax.swing.JFrame {
             .addGap(0, 35, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 70)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.black);
-        jLabel1.setText("SGA");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblSGA.setFont(new java.awt.Font("Arial Black", 1, 70)); // NOI18N
+        lblSGA.setText("SGA");
+        lblSGA.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.black);
-        jLabel2.setText("SISTEMA DE GESTIÓN ACADÉMICA");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblSGAdescripcion.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        lblSGAdescripcion.setText("SISTEMA DE GESTIÓN ACADÉMICA");
+        lblSGAdescripcion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.black);
-        jLabel3.setText("TALLER INTEGRADOR EN SISTEMAS");
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblTaller.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        lblTaller.setText("TALLER INTEGRADOR EN SISTEMAS");
+        lblTaller.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPanel1.setBackground(java.awt.Color.white);
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
-        jLabel4.setText("USUARIO:");
+        lblUsuario.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        lblUsuario.setText("USUARIO:");
 
-        jTextField1.setBackground(java.awt.Color.white);
-        jTextField1.setForeground(java.awt.Color.black);
-        jTextField1.setToolTipText("");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        CampoUsuario.setToolTipText("");
+        CampoUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
-        jLabel5.setText("CONTRASEÑA:");
+        lblContraseña.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        lblContraseña.setText("CONTRASEÑA:");
 
-        jTextField2.setBackground(java.awt.Color.white);
-        jTextField2.setForeground(java.awt.Color.black);
-        jTextField2.setToolTipText("");
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        Login.setText("Ingresar");
+        Login.addActionListener(this::LoginActionPerformed);
+
+        CampoContrasenia.addActionListener(this::CampoContraseniaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,27 +95,33 @@ public class Ventana extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
+                    .addComponent(CampoUsuario)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 204, Short.MAX_VALUE)))
+                            .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(CampoContrasenia))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(Login)
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CampoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addComponent(lblContraseña)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addComponent(CampoContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(Login)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPGeneralLayout = new javax.swing.GroupLayout(jPGeneral);
@@ -130,12 +133,12 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPGeneralLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3))
+                        .addComponent(lblTaller))
                     .addGroup(jPGeneralLayout.createSequentialGroup()
                         .addGap(165, 165, 165)
                         .addGroup(jPGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
+                            .addComponent(lblSGAdescripcion)
+                            .addComponent(lblSGA)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
@@ -144,11 +147,11 @@ public class Ventana extends javax.swing.JFrame {
             .addGroup(jPGeneralLayout.createSequentialGroup()
                 .addComponent(jPBorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(lblTaller)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSGA, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblSGAdescripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(26, 26, 26))
@@ -168,6 +171,58 @@ public class Ventana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+        String cedula = CampoUsuario.getText().trim();
+        String password = new String(CampoContrasenia.getPassword());
+        
+        
+        
+        // Líneas de depuración:
+        System.out.println("Cédula leída: [" + cedula + "]");
+        System.out.println("Password leída: [" + password + "]");
+
+        if (cedula.isEmpty() || password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Completá usuario y contraseña", "Datos incompletos",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        SistemadeGestionAcademica fachada = new SistemadeGestionAcademica();
+        try {
+            String resultado = fachada.validarLogin(cedula, password);
+
+            if (resultado.equals(SistemadeGestionAcademica.LOGIN_OK)) {
+                Usuario usuario = fachada.getUsuarioLogueado();
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Bienvenido " + usuario.getNombre() + " (" + usuario.getRol() + ")",
+                    "Login exitoso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                // acá después: abrir la ventana correspondiente según usuario.getRol()
+            } else if (resultado.equals(SistemadeGestionAcademica.LOGIN_USUARIO_INEXISTENTE)) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "No existe un usuario con esa cédula", "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else if (resultado.equals(SistemadeGestionAcademica.LOGIN_USUARIO_INACTIVO)) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Este usuario está dado de baja", "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else if (resultado.equals(SistemadeGestionAcademica.LOGIN_PASSWORD_INCORRECTA)) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Contraseña incorrecta", "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Error de conexión a la base de datos", "Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            logger.log(java.util.logging.Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_LoginActionPerformed
+
+    private void CampoContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoContraseniaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoContraseniaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,6 +233,7 @@ public class Ventana extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            System.out.println("MI HASH REAL: " + org.mindrot.jbcrypt.BCrypt.hashpw("123456", org.mindrot.jbcrypt.BCrypt.gensalt(10)));
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -194,15 +250,17 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField CampoContrasenia;
+    private javax.swing.JTextField CampoUsuario;
+    private javax.swing.JButton Login;
     private javax.swing.JPanel jPBorder;
     private javax.swing.JPanel jPGeneral;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblSGA;
+    private javax.swing.JLabel lblSGAdescripcion;
+    private javax.swing.JLabel lblTaller;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
+   
 }

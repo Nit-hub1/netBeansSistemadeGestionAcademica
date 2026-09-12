@@ -3,28 +3,42 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package fachada;
-import org.mindrot.jbcrypt.BCrypt;
-/**
- *
- * @author iamx2
- */
-public class SistemadeGestionAcademica {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        String contraseñaReal = "hola123";
-        String contraseñaHash = BCrypt.hashpw(contraseñaReal, BCrypt.gensalt());
-        System.out.println("Contraseña Real: "+contraseñaReal);
-        System.out.println("Contraseña Hash: "+contraseñaHash);
-        boolean validarContraseña = BCrypt.checkpw("hola12", contraseñaHash);
-        if(validarContraseña){
-            System.out.println("Contraseña Valida");
-        }else{
-            System.out.println("Contraseña Erronea");
-        }
-    }
+// importo las clases, el repo, el jar q hace lo de la contra y las excepciones
+import logica.entidades.Usuario; 
+import repositorio.UsuarioRepositorio;
+import org.mindrot.jbcrypt.BCrypt;
+import java.sql.SQLException;
+
+public class SistemadeGestionAcademica {
     
+    public static final String LOGIN_OK = "OK";
+    public static final String LOGIN_USUARIO_INEXISTENTE = "USUARIO_INEXISTENTE";
+    // este es por si "lo borre", ej. un docente que renuncio.
+    public static final String LOGIN_USUARIO_INACTIVO = "USUARIO_INACTIVO";
+    public static final String LOGIN_PASSWORD_INCORRECTA = "PASSWORD_INCORRECTA";
+
+    private final UsuarioRepositorio usuarioRepositorio = new UsuarioRepositorio();
+    private Usuario usuarioLogueado;
+
+    public String validarLogin(String cedula, String passwordPlano) throws SQLException {
+        Usuario usuario = usuarioRepositorio.buscarPorCedula(cedula);
+
+        if (usuario == null) {
+            return LOGIN_USUARIO_INEXISTENTE;
+        }
+        if (!usuario.isActivo()) {
+            return LOGIN_USUARIO_INACTIVO;
+        }
+        if (!BCrypt.checkpw(passwordPlano, usuario.getPwHash())) {
+            return LOGIN_PASSWORD_INCORRECTA;
+        }
+
+        this.usuarioLogueado = usuario;
+        return LOGIN_OK;
+    }
+
+    public Usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
 }

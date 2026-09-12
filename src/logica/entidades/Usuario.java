@@ -11,16 +11,18 @@ package logica.entidades;
 public class Usuario {
     private String nombre;
     private String apellido;
-    private String ci;
+    private String cedula;
+    private String rol;
     private String pwHash;
-    private String correo;
+    private boolean activo;
     
-    public Usuario (String nom, String ape, String cedula, String pw, String mail){
-        nombre = nom;
-        apellido = ape;
-        ci = cedula;
-        pwHash = pw;
-        correo = mail;
+    public Usuario(String cedula, String pwHash, String rol, String nombre, String apellido, boolean activo) {
+        this.cedula = cedula;
+        this.pwHash = pwHash;
+        this.rol = rol;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.activo = activo;
     }
 
     public String getNombre() {
@@ -39,12 +41,12 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public String getCi() {
-        return ci;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     public String getPwHash() {
@@ -55,11 +57,19 @@ public class Usuario {
         this.pwHash = pwHash;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getRol() {
+        return rol;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }    
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public boolean isActivo(){
+        return activo; // si esta activo = no "borre" al usuario
+    }
+    
+    public void setActivo(boolean activo){
+        this.activo=activo;
+    }
 }

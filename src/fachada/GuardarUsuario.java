@@ -9,9 +9,7 @@ import logica.entidades.Usuario;
  * @author iamx2
  */
 public class GuardarUsuario {
-   public void registroUser (String nom, String ape, String ci, String pw, String correo){
-       Usuario u = new Usuario(nom, ape, ci, pw, correo);
-   }
-    
-    
+   public void registroUser (String cedula, String pwHash, String rol, String nombre, String apellido, boolean activo){
+       Usuario u = new Usuario(cedula, pwHash, rol, nombre, apellido, activo);    
+    }
 }
