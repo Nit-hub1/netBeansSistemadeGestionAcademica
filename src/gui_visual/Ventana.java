@@ -22,6 +22,8 @@ public class Ventana extends javax.swing.JFrame {
         initComponents();
         disenioFlatLaf();
         fachada = new Fachada();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
     
     private void disenioFlatLaf (){
@@ -126,6 +128,7 @@ public class Ventana extends javax.swing.JFrame {
         btnRegister.setBackground(java.awt.Color.darkGray);
         btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegister.setText("Registrarse");
+        btnRegister.addActionListener(this::btnRegisterActionPerformed);
 
         tbMostrarPw.setBackground(java.awt.Color.darkGray);
         tbMostrarPw.addActionListener(this::tbMostrarPwActionPerformed);
@@ -253,6 +256,11 @@ public class Ventana extends javax.swing.JFrame {
        
        
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        this.setVisible(false);
+        new VentanaRegistro(this).setVisible(true);
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments

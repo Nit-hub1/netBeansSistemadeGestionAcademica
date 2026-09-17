@@ -13,14 +13,52 @@ public class VentanaRegistro extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaRegistro.class.getName());
     private Fachada fachada;
+    private javax.swing.JFrame ventanaLogin;
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaRegistro() {
+    public VentanaRegistro(javax.swing.JFrame ventanaLogin) {
         initComponents();
         fachada = new Fachada();
+        this.ventanaLogin = ventanaLogin;
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt){
+                if(ventanaLogin != null){
+                    ventanaLogin.setVisible(true);
+                }
+            }
+        });
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        disenioFlatLaf();
     }
 
+    private void disenioFlatLaf (){
+        //BOTONES REDONDOS
+        btnFlatLaf(btnRegister, "REGISTRARSE");
+        //PLACEHOLDERS PARA LOS FIELDS
+        txtNombre.putClientProperty(com.formdev.flatlaf.FlatClientProperties.PLACEHOLDER_TEXT, "EJ: Ignacio");
+        txtNombre.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE, "placeholderForeground: #444444");
+        txtPassword.putClientProperty(com.formdev.flatlaf.FlatClientProperties.PLACEHOLDER_TEXT, "EJ: CONTRASEÑA123");
+        txtPassword.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE,"placeholderForeground: #444444");
+        txtApellido.putClientProperty(com.formdev.flatlaf.FlatClientProperties.PLACEHOLDER_TEXT, "EJ: Martínez");
+        txtApellido.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE,"placeholderForeground: #444444");
+        txtCedula.putClientProperty(com.formdev.flatlaf.FlatClientProperties.PLACEHOLDER_TEXT, "EJ: 54461593");
+        txtCedula.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE,"placeholderForeground: #444444");
+        //BTN SWITCH PARA LA PW
+        tbMostrarPw.putClientProperty(com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE, com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        tbMostrarPw.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE,"arc: 999; minimumWidth: 45");
+    }
+    
+    private void btnFlatLaf(javax.swing.JButton btn, String texto){
+        btn.setText(texto);
+        btn.setBackground(new java.awt.Color(50, 50, 50));
+        btn.setForeground(java.awt.Color.WHITE);
+        btn.putClientProperty(com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE, com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        btn.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE, "arc: 999");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +67,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         pnlPrincipal = new javax.swing.JPanel();
         pnlBorde = new javax.swing.JPanel();
@@ -58,7 +97,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         pnlBorde.setLayout(pnlBordeLayout);
         pnlBordeLayout.setHorizontalGroup(
             pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnlBordeLayout.setVerticalGroup(
             pnlBordeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,145 +105,167 @@ public class VentanaRegistro extends javax.swing.JFrame {
         );
 
         pnlEtiquetas.setBackground(java.awt.Color.lightGray);
+        pnlEtiquetas.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 70)); // NOI18N
         jLabel1.setForeground(java.awt.Color.black);
         jLabel1.setText("SGA");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipady = -23;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 112, 0, 0);
+        pnlEtiquetas.add(jLabel1, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel3.setForeground(java.awt.Color.black);
         jLabel3.setText("TALLER INTEGRADOR EN SISTEMAS");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlEtiquetas.add(jLabel3, new java.awt.GridBagConstraints());
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("SISTEMA DE GESTIÓN ACADÉMICA");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout pnlEtiquetasLayout = new javax.swing.GroupLayout(pnlEtiquetas);
-        pnlEtiquetas.setLayout(pnlEtiquetasLayout);
-        pnlEtiquetasLayout.setHorizontalGroup(
-            pnlEtiquetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEtiquetasLayout.createSequentialGroup()
-                .addGroup(pnlEtiquetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEtiquetasLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jLabel1))
-                    .addGroup(pnlEtiquetasLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel2))
-                    .addComponent(jLabel3))
-                .addContainerGap(80, Short.MAX_VALUE))
-        );
-        pnlEtiquetasLayout.setVerticalGroup(
-            pnlEtiquetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEtiquetasLayout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 76, 33, 80);
+        pnlEtiquetas.add(jLabel2, gridBagConstraints);
 
         pnlFields.setBackground(java.awt.Color.lightGray);
         pnlFields.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), java.awt.Color.black)); // NOI18N
+        pnlFields.setLayout(new java.awt.GridBagLayout());
 
         txtApellido.setBackground(java.awt.Color.gray);
         txtApellido.setForeground(java.awt.Color.black);
         txtApellido.setToolTipText("");
         txtApellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 307;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 20);
+        pnlFields.add(txtApellido, gridBagConstraints);
 
         txtCedula.setBackground(java.awt.Color.gray);
         txtCedula.setForeground(java.awt.Color.black);
         txtCedula.setToolTipText("");
         txtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 305;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 0);
+        pnlFields.add(txtCedula, gridBagConstraints);
 
         txtNombre.setBackground(java.awt.Color.gray);
         txtNombre.setForeground(java.awt.Color.black);
         txtNombre.setToolTipText("");
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 305;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 0);
+        pnlFields.add(txtNombre, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
         jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("NOMBRE:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 65;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 21, 0, 0);
+        pnlFields.add(jLabel4, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
         jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("APELLIDO:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 56;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 0);
+        pnlFields.add(jLabel5, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
         jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("CONTRASEÑA:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 0);
+        pnlFields.add(jLabel6, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
         jLabel7.setForeground(java.awt.Color.black);
         jLabel7.setText("CÉDULA:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 69;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 0);
+        pnlFields.add(jLabel7, gridBagConstraints);
 
         txtPassword.setBackground(java.awt.Color.gray);
         txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 305;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 21, 0, 0);
+        pnlFields.add(txtPassword, gridBagConstraints);
 
         btnRegister.setBackground(java.awt.Color.darkGray);
         btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegister.setText("Registrarse");
         btnRegister.addActionListener(this::btnRegisterActionPerformed);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 21, 23, 0);
+        pnlFields.add(btnRegister, gridBagConstraints);
 
         tbMostrarPw.setBackground(java.awt.Color.darkGray);
         tbMostrarPw.addActionListener(this::tbMostrarPwActionPerformed);
-
-        javax.swing.GroupLayout pnlFieldsLayout = new javax.swing.GroupLayout(pnlFields);
-        pnlFields.setLayout(pnlFieldsLayout);
-        pnlFieldsLayout.setHorizontalGroup(
-            pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFieldsLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFieldsLayout.createSequentialGroup()
-                        .addComponent(txtApellido)
-                        .addGap(15, 15, 15))
-                    .addGroup(pnlFieldsLayout.createSequentialGroup()
-                        .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRegister)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlFieldsLayout.createSequentialGroup()
-                        .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tbMostrarPw, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        pnlFieldsLayout.setVerticalGroup(
-            pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFieldsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegister)
-                    .addComponent(tbMostrarPw, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.ipady = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 191, 0, 0);
+        pnlFields.add(tbMostrarPw, gridBagConstraints);
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
@@ -214,7 +275,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlEtiquetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(pnlBorde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlBorde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,20 +351,21 @@ public class VentanaRegistro extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        com.formdev.flatlaf.FlatLightLaf.setup();
+        //try {
+            //for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                //if ("Nimbus".equals(info.getName())) {
+                    //javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    //break;
+                //}
+            //}
+        //} catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            //logger.log(java.util.logging.Level.SEVERE, null, ex);
+        //}
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaRegistro().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new VentanaRegistro(null).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

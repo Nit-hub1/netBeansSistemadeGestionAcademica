@@ -20,7 +20,7 @@ public abstract class Usuario {
         nombre = nom;
         apellido = ape;
         ci = cedula;
-        pwHash = BCrypt.hashpw(pw, BCrypt.gensalt());
+        setPwHash(pw);
     }
 
     public String getNombre() {
@@ -51,8 +51,12 @@ public abstract class Usuario {
         return pwHash;
     }
 
-    public void setPwHash(String pwHash) {
-        this.pwHash = pwHash;
+    public void setPwHash(String pw) {
+        if (pw != null && (pw.startsWith("$2a$") || pw.startsWith("$2b$"))) {
+            pwHash = pw;
+        } else {
+            pwHash = BCrypt.hashpw(pw, BCrypt.gensalt());
+        }
     }
 
     public boolean validarPw(String pw){

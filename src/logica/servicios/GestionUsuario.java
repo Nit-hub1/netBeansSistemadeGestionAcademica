@@ -3,18 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package logica.servicios;
-import javax.swing.JOptionPane;
-import repositorio.UsuarioPersistenciaTESTMAP;
+import repositorio.UsuarioPersistencia;
 import logica.entidades.*;
 /**
  *
  * @author iamx2
  */
 public class GestionUsuario {
-    private UsuarioPersistenciaTESTMAP usuarioPersistencia;
+    private UsuarioPersistencia usuarioPersistencia;
     
     public GestionUsuario(){
-        usuarioPersistencia = new UsuarioPersistenciaTESTMAP();
+        usuarioPersistencia = new UsuarioPersistencia();
     }
     
     public Usuario verificarUsuario(String ci, String pw){
