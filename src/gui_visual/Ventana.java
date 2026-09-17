@@ -108,7 +108,7 @@ public class Ventana extends javax.swing.JFrame {
         jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("USUARIO (CI):");
 
-        txtUsuario.setBackground(java.awt.Color.gray);
+        txtUsuario.setBackground(java.awt.Color.lightGray);
         txtUsuario.setForeground(java.awt.Color.black);
         txtUsuario.setToolTipText("");
         txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -117,7 +117,8 @@ public class Ventana extends javax.swing.JFrame {
         jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("CONTRASEÑA:");
 
-        txtPassword.setBackground(java.awt.Color.gray);
+        txtPassword.setBackground(java.awt.Color.lightGray);
+        txtPassword.setForeground(java.awt.Color.white);
         txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         btnLogin.setBackground(java.awt.Color.darkGray);
