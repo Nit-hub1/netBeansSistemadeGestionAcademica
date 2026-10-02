@@ -118,7 +118,7 @@ public class Ventana extends javax.swing.JFrame {
         jLabel5.setText("CONTRASEÑA:");
 
         txtPassword.setBackground(java.awt.Color.lightGray);
-        txtPassword.setForeground(java.awt.Color.white);
+        txtPassword.setForeground(java.awt.Color.black);
         txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         btnLogin.setBackground(java.awt.Color.darkGray);
@@ -247,10 +247,13 @@ public class Ventana extends javax.swing.JFrame {
        Usuario userLogueado = fachada.login(ci, pw);
        
        if(userLogueado != null){
-           JOptionPane.showMessageDialog(this, 
-                   "Bienvenido/a" + userLogueado.getRol() + 
-                   "\n" + userLogueado.getNombre() + 
-                   "\nLogin Exitoso");
+           if(userLogueado.getRol().equals("Docente")){
+               VentanaDocente ventanaDocente = new VentanaDocente();
+               ventanaDocente.cargarCursoCbx(ci);
+               ventanaDocente.cargarNomApeDocente(userLogueado.getNombre(), userLogueado.getApellido());
+               ventanaDocente.setVisible(true);
+               this.dispose();
+           }
        }else{
            JOptionPane.showMessageDialog(this, "El usuario ingresado es incorrecto", "Error",JOptionPane.ERROR_MESSAGE);
        }

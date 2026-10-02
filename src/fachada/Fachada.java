@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package fachada;
+import java.util.ArrayList;
 import logica.servicios.*;
 import logica.entidades.*;
 /**
@@ -10,11 +11,17 @@ import logica.entidades.*;
  * @author iamx2
  */
 public class Fachada {
+    // Clase de estudiante
     private GestionUsuario servicioUsuario;
+    // Clase de curso
+    private GestionCurso servicioCurso;
 
     public Fachada(){
         servicioUsuario = new GestionUsuario();
+        servicioCurso = new GestionCurso();
     }
+    
+    // USUARIOSSS
     
    public Usuario login(String ci, String pw){
        return servicioUsuario.verificarUsuario(ci, pw);
@@ -22,5 +29,45 @@ public class Fachada {
    
    public boolean registrar(String nom, String ape, String ci, String pw, int tipoPerfil){
        return servicioUsuario.registrarUsuario(nom, ape, ci, pw, tipoPerfil);
+   }
+   
+   // CURSOSSS
+   
+   public ArrayList<String> nombresCursosDocente (String ciDocente){
+       ColeccionCursos coleccion = servicioCurso.traerCursoPorDocente(ciDocente);
+       ArrayList<String> listaNombres = new ArrayList<>();
+       
+       for(int i=0; i < coleccion.cantidadCursos(); i++){
+           Curso c = coleccion.obtenerCurso(i);
+           String descripcion = c.getIdCurso() + " - " + c.getAsignatura().getNombre() + " (" + c.getPeriodo() + ")";
+           listaNombres.add(descripcion);
+       }
+       return listaNombres;
+   }
+   
+   // INSCRIPCIONESSSS
+   
+   public ArrayList<String[]> obtenerEstudiantePorCurso(int idCurso){
+       ColeccionInscripciones inscripciones = servicioCurso.traerEstudiantesPorCurso(idCurso);
+       ArrayList<String[]> filas = new ArrayList<>();
+       
+       for(int i=0; i<inscripciones.cantidadInscripciones(); i++){
+           Inscripcion ins = inscripciones.obtenerInscripciones(i);
+           Estudiante est = ins.getEstudiante();
+           
+           String[] fila = new String[]{
+               est.getCi(),
+               est.getNombre(),
+               est.getApellido(),
+               "-", // CALIFICACION ACTUAL UNUUUUUU
+               "" // CALIFICACION NUEVAAA UWUUUU
+           };
+           filas.add(fila);
+       }
+       return filas;
+   }
+   
+   public boolean guardarCalificacion(String cedulaEstudiante, int idCurso, double nota, String tarea){
+       return servicioCurso.registrarNotaEstudiante(cedulaEstudiante, idCurso, nota, tarea);
    }
 }
