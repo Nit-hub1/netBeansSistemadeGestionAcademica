@@ -40,4 +40,11 @@ public class GestionCurso {
         }
         return false;
     }
+    
+    public ColeccionCalificaciones obtenerHistorialCalificaciones(String cedula, int idCurso){
+        if(cedula == null || cedula.trim().isEmpty() || idCurso <= 0){
+            return new ColeccionCalificaciones();
+        }
+        return cursoPersistencia.obtenerHistorialCalificaciones(cedula, idCurso);
+    }
 }

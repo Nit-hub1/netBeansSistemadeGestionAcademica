@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import logica.entidades.*;
 
 /**
@@ -129,5 +130,36 @@ public class CursoPersistencia {
             System.err.println("Error al registrar calificación: " + e.getMessage());
             return false;
         }
+    }
+    
+    public ColeccionCalificaciones obtenerHistorialCalificaciones(String cedula, int idCurso){
+        ColeccionCalificaciones calificaciones = new ColeccionCalificaciones();
+        String sql = "SELECT cal.idCalificación, cal.FechaNota, cal.TareaCalificada, cal.Nota " +
+                     "FROM Calificacion cal " +
+                     "JOIN Cursa c ON cal.idInscripción = c.idInscripción " +
+                     "WHERE c.CedulaEstudiante = ? AND c.idCurso = ? " +
+                     "ORDER BY cal.FechaNota DESC, cal.idCalificación DESC";
+        
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            
+            stmt.setString(1, cedula);
+            stmt.setInt(2, idCurso);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int idCalificacion = rs.getInt("idCalificación");
+                    String fechaNota = rs.getString("FechaNota");
+                    double nota = rs.getDouble("Nota");
+                    String tarea = rs.getString("TareaCalificada");
+                         
+                    Calificacion cal = new Calificacion(idCalificacion, fechaNota, nota, tarea, null);
+                    calificaciones.agregarCalificacion(cal); 
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al consultar historial: " + e.getMessage());
+        }
+        return calificaciones;
     }
 }

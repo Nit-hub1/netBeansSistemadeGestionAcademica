@@ -9,17 +9,25 @@ package logica.entidades;
  * @author iamx2
  */
 public class Calificacion {
-    private String idCalificacion;
+    private int idCalificacion;
     private String fechaNota;
     private double nota;
     private String tareaCalificacion;
     private Inscripcion inscripciones;
 
-    public String getIdCalificacion() {
+    public Calificacion(int idCal, String fechaNta, double nta, String tareaCal, Inscripcion inscrip) {
+        idCalificacion = idCal;
+        fechaNota = fechaNta;
+        nota = nta;
+        tareaCalificacion = tareaCal;
+        inscripciones = inscrip;
+    }
+
+    public int getIdCalificacion() {
         return idCalificacion;
     }
 
-    public void setIdCalificacion(String idCal) {
+    public void setIdCalificacion(int idCal) {
         idCalificacion = idCal;
     }
 

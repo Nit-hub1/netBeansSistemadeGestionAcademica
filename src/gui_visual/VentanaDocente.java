@@ -23,6 +23,9 @@ public class VentanaDocente extends javax.swing.JFrame {
         initComponents();
         fachada = new Fachada();
         btnFlatLafDocente(btnGuardarCambios, "Guardar Cambios");
+        btnFlatLafDocente(btnVerHistorial, "Ver Historial");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
     
     private void btnFlatLafDocente(javax.swing.JButton btn, String texto){
@@ -93,6 +96,7 @@ public class VentanaDocente extends javax.swing.JFrame {
         tblListaEstudiante = new javax.swing.JTable();
         pnlInferior = new javax.swing.JPanel();
         btnGuardarCambios = new javax.swing.JButton();
+        btnVerHistorial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -228,11 +232,11 @@ public class VentanaDocente extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Cédula", "Nombre", "Apellido", "Calificación", "Nueva Calificación"
+                "Cédula", "Nombre", "Apellido", "Nueva Calificación", "Observación"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -266,12 +270,19 @@ public class VentanaDocente extends javax.swing.JFrame {
         btnGuardarCambios.setText("Guardar Cambios");
         btnGuardarCambios.addActionListener(this::btnGuardarCambiosActionPerformed);
 
+        btnVerHistorial.setBackground(java.awt.Color.darkGray);
+        btnVerHistorial.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVerHistorial.setText("Ver Historial");
+        btnVerHistorial.addActionListener(this::btnVerHistorialActionPerformed);
+
         javax.swing.GroupLayout pnlInferiorLayout = new javax.swing.GroupLayout(pnlInferior);
         pnlInferior.setLayout(pnlInferiorLayout);
         pnlInferiorLayout.setHorizontalGroup(
             pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInferiorLayout.createSequentialGroup()
-                .addContainerGap(1133, Short.MAX_VALUE)
+            .addGroup(pnlInferiorLayout.createSequentialGroup()
+                .addContainerGap(1016, Short.MAX_VALUE)
+                .addComponent(btnVerHistorial)
+                .addGap(18, 18, 18)
                 .addComponent(btnGuardarCambios)
                 .addGap(23, 23, 23))
         );
@@ -279,7 +290,9 @@ public class VentanaDocente extends javax.swing.JFrame {
             pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInferiorLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -354,18 +367,25 @@ public class VentanaDocente extends javax.swing.JFrame {
         int notasGuardadas = 0;
    
         for(int i=0; i<model.getRowCount(); i++){
-            String cedula = (String) model.getValueAt(i, 0);
-            Object nuevaNotaObj = model.getValueAt(i, 4);
+            String cedula = model.getValueAt(i, 0).toString();
+            Object nuevaNotaObj = model.getValueAt(i, 3);
+            Object obser = model.getValueAt(i, 4);
             
-            if(nuevaNotaObj != null){
+            if(nuevaNotaObj != null && !nuevaNotaObj.toString().trim().isEmpty()){
                 String nuevaNotaStr = nuevaNotaObj.toString().trim();
+                String observacion;
+                if(obser != null && !obser.toString().trim().isEmpty()){
+                    observacion = obser.toString().trim();
+                }else{
+                    observacion = " ";
+                }
                 
                 if(!nuevaNotaStr.isEmpty()){
                     try{
                         double nota = Double.parseDouble(nuevaNotaStr);
                         
                         //GUARDAR LA CALIIII
-                        boolean exito = fachada.guardarCalificacion(cedula, idCurso, nota, "Evaluación Continua");
+                        boolean exito = fachada.guardarCalificacion(cedula, idCurso, nota, observacion);
                         if(exito){
                             notasGuardadas++;
                         }
@@ -384,6 +404,25 @@ public class VentanaDocente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
+    private void btnVerHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialActionPerformed
+        int filaSel = tblListaEstudiante.getSelectedRow();
+        
+        if(filaSel == -1){
+            JOptionPane.showMessageDialog(this, "Seleccione un estudiante de la tabla primero.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String cedula = tblListaEstudiante.getValueAt(filaSel, 0).toString();
+        String nombreCompleto = tblListaEstudiante.getValueAt(filaSel, 1).toString() + " " + tblListaEstudiante.getValueAt(filaSel, 2).toString();
+        Object itemCb = cbxCurso.getSelectedItem();
+        if(itemCb == null){
+            return;
+        }
+        int idCurso = Integer.parseInt(itemCb.toString().split(" - ")[0].trim());
+        
+        HistorialCalificacion historial = new HistorialCalificacion(this, cedula, nombreCompleto, "Activo", idCurso, fachada);
+        historial.setVisible(true);
+    }//GEN-LAST:event_btnVerHistorialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -397,6 +436,7 @@ public class VentanaDocente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnVerHistorial;
     private javax.swing.JComboBox<String> cbxCurso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
