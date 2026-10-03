@@ -333,7 +333,14 @@ public class VentanaRegistro extends javax.swing.JFrame {
             return;
         }
         
-        boolean registroHecho = fachada.registrar(nom, ape, ci, pw, opcion);
+        boolean registroHecho;
+        
+        try {
+            registroHecho = fachada.registrar(nom, ape, ci, pw, opcion);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Cédula inválida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         
         if(registroHecho){
             JOptionPane.showMessageDialog(this, "Se Registró el Usuario", "Registro Hecho", JOptionPane.INFORMATION_MESSAGE);

@@ -34,6 +34,10 @@ public class GestionCurso {
     }
     
     public boolean registrarNotaEstudiante (String cedulaEstudiante, int idCurso, double nota, String tarea){
+        if (!esNotaValida(nota)) {
+            throw new IllegalArgumentException("La nota debe estar entre 1 y 12");
+        }
+        
         int idInscripcion = cursoPersistencia.obtenerIdInscripcion(cedulaEstudiante, idCurso);
         if(idInscripcion != -1){
             return cursoPersistencia.guardarCalificacion(idInscripcion, nota, tarea);
@@ -46,5 +50,9 @@ public class GestionCurso {
             return new ColeccionCalificaciones();
         }
         return cursoPersistencia.obtenerHistorialCalificaciones(cedula, idCurso);
+    }
+    
+    public static boolean esNotaValida(double nota) {
+        return (nota > 0 && nota < 13);
     }
 }

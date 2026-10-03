@@ -391,6 +391,9 @@ public class VentanaDocente extends javax.swing.JFrame {
                         }
                     }catch (NumberFormatException e){
                         JOptionPane.showMessageDialog(this, "Ingrese un número válido ");
+                    }catch (IllegalArgumentException e){
+                        JOptionPane.showMessageDialog(this, "Estudiante  " + cedula + ": " + e.getMessage());
+;
                     }
                 }
             }
