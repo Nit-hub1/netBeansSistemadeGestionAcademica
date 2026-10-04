@@ -338,7 +338,7 @@
                         <Column editable="false" title="Nombre" type="java.lang.Object"/>
                         <Column editable="false" title="Apellido" type="java.lang.Object"/>
                         <Column editable="true" title="Nueva Calificaci&#xf3;n" type="java.lang.Object"/>
-                        <Column editable="true" title="Observaci&#xf3;n" type="java.lang.Object"/>
+                        <Column editable="true" title="Comentario" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

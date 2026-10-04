@@ -100,7 +100,7 @@ public class HistorialCalificacion extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(java.awt.Color.lightGray);
 
@@ -150,7 +150,7 @@ public class HistorialCalificacion extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Fecha", "Observación", "Nota"
+                "Fecha", "Comentario", "Nota"
             }
         ));
         jScrollPane1.setViewportView(tblHistorial);
