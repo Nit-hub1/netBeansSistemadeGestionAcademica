@@ -24,8 +24,27 @@ public class VentanaDocente extends javax.swing.JFrame {
         fachada = new Fachada();
         btnFlatLafDocente(btnGuardarCambios, "Guardar Cambios");
         btnFlatLafDocente(btnVerHistorial, "Ver Historial");
+        configurarPlaceholderTabla(); // el que configura - 
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+    }
+    
+    // Hace el "-" un place holder gris en las celdas vacías de nota y observación
+    private void configurarPlaceholderTabla() {
+        javax.swing.table.DefaultTableCellRenderer placeholder = new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            protected void setValue(Object value) {
+                if (value == null || value.toString().trim().isEmpty()) {
+                    setText("-");
+                    setForeground(java.awt.Color.DARK_GRAY);
+                } else {
+                    setText(value.toString());
+                    setForeground(java.awt.Color.BLACK);
+                }
+            }
+        };
+        tblListaEstudiante.getColumnModel().getColumn(3).setCellRenderer(placeholder);
+        tblListaEstudiante.getColumnModel().getColumn(4).setCellRenderer(placeholder);
     }
     
     private void btnFlatLafDocente(javax.swing.JButton btn, String texto){
@@ -351,7 +370,7 @@ public class VentanaDocente extends javax.swing.JFrame {
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
         // ASEGURARSE DE QUE HAY UN CURSO SELECCIONADO;
         String cbxSel = (String) cbxCurso.getSelectedItem();
-        if(cbxSel == null && cbxSel.isEmpty()){
+        if(cbxSel == null || cbxSel.isEmpty()){ //cambie and por or, sería imposible que ambas esten a la vez entonces no tira el aviso
             JOptionPane.showMessageDialog(this, "Debe seleccionar un curso.");
             return;
         }
@@ -372,7 +391,7 @@ public class VentanaDocente extends javax.swing.JFrame {
             Object obser = model.getValueAt(i, 4);
             
             if(nuevaNotaObj != null && !nuevaNotaObj.toString().trim().isEmpty()){
-                String nuevaNotaStr = nuevaNotaObj.toString().trim();
+                String nuevaNotaStr = nuevaNotaObj.toString().trim().replace(".",".");
                 String observacion;
                 if(obser != null && !obser.toString().trim().isEmpty()){
                     observacion = obser.toString().trim();
@@ -400,7 +419,7 @@ public class VentanaDocente extends javax.swing.JFrame {
         }
         
         if(notasGuardadas > 0){
-            JOptionPane.showMessageDialog(this, "Se guardaron: " + notasGuardadas + "calificación/es correctamente");
+            JOptionPane.showMessageDialog(this, "Se guardaron: " + notasGuardadas + " calificación/es correctamente");
             cargarTablaEstudiantes(idCurso);
         }else{
             JOptionPane.showMessageDialog(this, "No se ingresó ninguna nueva calificación.");

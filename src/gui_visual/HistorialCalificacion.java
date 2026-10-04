@@ -100,7 +100,7 @@ public class HistorialCalificacion extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(java.awt.Color.lightGray);
 
@@ -118,32 +118,25 @@ public class HistorialCalificacion extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("HISTORIAL DE CALIFICACIONES");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        jLabel9.setForeground(java.awt.Color.black);
         jLabel9.setText("Estado:");
 
         lblEstado.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        lblEstado.setForeground(java.awt.Color.black);
         lblEstado.setText("\"Estado\"");
 
         lblCi.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        lblCi.setForeground(java.awt.Color.black);
         lblCi.setText("\"Cédula\"");
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("CI:");
 
         lblNom.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        lblNom.setForeground(java.awt.Color.black);
         lblNom.setText("\"Nombre\"");
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("Estudiante:");
 
         jScrollPane1.setBackground(java.awt.Color.black);
@@ -163,11 +156,9 @@ public class HistorialCalificacion extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblHistorial);
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        jLabel10.setForeground(java.awt.Color.black);
         jLabel10.setText("Promedio General:");
 
         lblPromedioGeneral.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
-        lblPromedioGeneral.setForeground(java.awt.Color.black);
         lblPromedioGeneral.setText("\"Promedio\"");
 
         btnVolver.setBackground(java.awt.Color.darkGray);

@@ -59,8 +59,8 @@ public class Fachada {
                est.getCi(),
                est.getNombre(),
                est.getApellido(),
-               "-", // CALIFICACION ACTUAL UNUUUUUU
-               "-" // OBSERVACIÓN UWUUUU
+               "", // CALIFICACION ACTUAL UNUUUUUU (acá había -)
+               "" // OBSERVACIÓN UWUUUU (acá había guion)
            };
            filas.add(fila);
        }
