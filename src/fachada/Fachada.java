@@ -89,4 +89,31 @@ public class Fachada {
        }
        return res;
    }
+   
+    // PROMEDIOSSS B) (devuelven texto listo para mostrar en una ventana)
+    public String promedioSimpleEstudiante(String cedula) {
+        return formatearPromedio(servicioCurso.promedioSimpleEstudiante(cedula));
+    }
+
+    public String promedioPonderadoEstudiante(String cedula) {
+        return formatearPromedio(servicioCurso.promedioPonderadoEstudiante(cedula));
+    }
+
+    public String promedioPorAsignatura(String nombreAsignatura) {
+        return formatearPromedio(servicioCurso.promedioPorAsignatura(nombreAsignatura));
+    }
+
+    public String promedioGeneralInstitucional() {
+        return formatearPromedio(servicioCurso.promedioGeneralInstitucional());
+    }
+
+    private String formatearPromedio(double promedio) {
+        if (promedio == ColeccionResultados.SIN_PROMEDIO) {
+            return "Sin notas";
+        }
+        return String.format("%.2f", promedio);
+        // Pasa un double a un texto el %.2f con 2 cifras significativas (dsp de la coma)
+    }
+    
+    // cuando tengas q mostrar usa algo tipo lblPromedio.setText(fachada.promedioPonderadoEstudiante(cedula));
 }

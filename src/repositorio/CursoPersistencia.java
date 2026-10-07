@@ -163,4 +163,79 @@ public class CursoPersistencia {
         }
         return calificaciones;
     }
+    
+    // cada consulta devuelve una fila por estudiante en cada curso, con el promedio de sus notas en ese curso (nota final)
+
+    public ColeccionResultados obtenerResultadosEstudiante(String cedula){
+        String sql = "SELECT u.Cédula, u.Nombre, u.Apellido, c.idCurso, a.Nombre AS NombreAsignatura, a.Creditos, cu.Estado, " +
+                     "AVG(cal.Nota) AS NotaFinal, COUNT(cal.idCalificación) AS CantidadNotas " +
+                     "FROM Calificacion cal " +
+                     "INNER JOIN Cursa cu ON cal.idInscripción = cu.idInscripción " +
+                     "INNER JOIN Curso c ON cu.idCurso = c.idCurso " +
+                     "INNER JOIN Asignatura a ON c.NombreAsignatura = a.Nombre " +
+                     "INNER JOIN Usuario u ON cu.CedulaEstudiante = u.Cédula " +
+                     "WHERE u.Cédula = ? " +
+                     "GROUP BY u.Cédula, u.Nombre, u.Apellido, c.idCurso, a.Nombre, a.Creditos, cu.Estado";
+        return consultarResultados(sql, cedula);
+    }
+
+    public ColeccionResultados obtenerResultadosAsignatura(String nombreAsignatura){
+        String sql = "SELECT u.Cédula, u.Nombre, u.Apellido, c.idCurso, a.Nombre AS NombreAsignatura, a.Creditos, cu.Estado, " +
+                     "AVG(cal.Nota) AS NotaFinal, COUNT(cal.idCalificación) AS CantidadNotas " +
+                     "FROM Calificacion cal " +
+                     "INNER JOIN Cursa cu ON cal.idInscripción = cu.idInscripción " +
+                     "INNER JOIN Curso c ON cu.idCurso = c.idCurso " +
+                     "INNER JOIN Asignatura a ON c.NombreAsignatura = a.Nombre " +
+                     "INNER JOIN Usuario u ON cu.CedulaEstudiante = u.Cédula " +
+                     "WHERE a.Nombre = ? " +
+                     "GROUP BY u.Cédula, u.Nombre, u.Apellido, c.idCurso, a.Nombre, a.Creditos, cu.Estado";
+        return consultarResultados(sql, nombreAsignatura);
+    }
+
+    public ColeccionResultados obtenerTodosLosResultados(){
+        String sql = "SELECT u.Cédula, u.Nombre, u.Apellido, c.idCurso, a.Nombre AS NombreAsignatura, a.Creditos, cu.Estado, " +
+                     "AVG(cal.Nota) AS NotaFinal, COUNT(cal.idCalificación) AS CantidadNotas " +
+                     "FROM Calificacion cal " +
+                     "INNER JOIN Cursa cu ON cal.idInscripción = cu.idInscripción " +
+                     "INNER JOIN Curso c ON cu.idCurso = c.idCurso " +
+                     "INNER JOIN Asignatura a ON c.NombreAsignatura = a.Nombre " +
+                     "INNER JOIN Usuario u ON cu.CedulaEstudiante = u.Cédula " +
+                     "GROUP BY u.Cédula, u.Nombre, u.Apellido, c.idCurso, a.Nombre, a.Creditos, cu.Estado";
+        return consultarResultados(sql, null);            
+    }
+
+    
+    private ColeccionResultados consultarResultados(String sql, String filtro){
+        ColeccionResultados resultados = new ColeccionResultados();
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            
+            // filtro = null significa que la consulta no tiene "?" (trae todo, es decir no solo 1 est)
+            if(filtro != null){
+                stmt.setString(1, filtro);
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Asignatura asignatura = new Asignatura(rs.getString("NombreAsignatura"), rs.getInt("Creditos"));
+
+                    ResultadoCurso res = new ResultadoCurso(
+                        rs.getString("Cédula"),
+                        rs.getString("Nombre"),
+                        rs.getString("Apellido"),
+                        rs.getInt("idCurso"),
+                        asignatura,
+                        rs.getString("Estado"),
+                        rs.getDouble("NotaFinal"),
+                        rs.getInt("CantidadNotas")
+                    );
+                    resultados.agregarResultado(res);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al consultar resultados: " + e.getMessage());
+        }
+        return resultados;
+    }
 }

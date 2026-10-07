@@ -70,5 +70,36 @@ public class GestionCurso {
     public static boolean esComentarioValido(String comentarioTarea) {
         return comentarioTarea.length() <= 255;
     }
+    
+    // Promedios, los 4 que se listan en la letra: simple por estudiante, ponderado por estudiante, por asignatura y general inst.
+    // Todos primero piden los datos a la persistencia y luego de obtenerlos (si hay) pide el promedio a ColeccionResultado.
+    public double promedioSimpleEstudiante(String cedula) {
+        if (cedula == null || cedula.trim().isEmpty()) {
+            return ColeccionResultados.SIN_PROMEDIO;
+        }
+        ColeccionResultados resultados = cursoPersistencia.obtenerResultadosEstudiante(cedula.trim());
+        return resultados.calcularPromedioSimple();
+    }
+
+    public double promedioPonderadoEstudiante(String cedula) {
+        if (cedula == null || cedula.trim().isEmpty()) {
+            return ColeccionResultados.SIN_PROMEDIO;
+        }
+        ColeccionResultados resultados = cursoPersistencia.obtenerResultadosEstudiante(cedula.trim());
+        return resultados.calcularPromedioPonderado();
+    }
+
+    public double promedioPorAsignatura(String nombreAsignatura) {
+        if (nombreAsignatura == null || nombreAsignatura.trim().isEmpty()) {
+            return ColeccionResultados.SIN_PROMEDIO;
+        }
+        ColeccionResultados resultados = cursoPersistencia.obtenerResultadosAsignatura(nombreAsignatura.trim());
+        return resultados.calcularPromedioSimple();
+    }
+
+    public double promedioGeneralInstitucional() {
+        ColeccionResultados resultados = cursoPersistencia.obtenerTodosLosResultados();
+        return resultados.calcularPromedioSimple();
+    }
         
 }
