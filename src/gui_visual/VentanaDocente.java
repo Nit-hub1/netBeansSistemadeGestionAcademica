@@ -24,8 +24,27 @@ public class VentanaDocente extends javax.swing.JFrame {
         fachada = new Fachada();
         btnFlatLafDocente(btnGuardarCambios, "Guardar Cambios");
         btnFlatLafDocente(btnVerHistorial, "Ver Historial");
+        configurarPlaceholderTabla(); // el que configura - 
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+    }
+    
+    // Hace el "-" un place holder gris en las celdas vacías de nota y observación
+    private void configurarPlaceholderTabla() {
+        javax.swing.table.DefaultTableCellRenderer placeholder = new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            protected void setValue(Object value) {
+                if (value == null || value.toString().trim().isEmpty()) {
+                    setText("-");
+                    setForeground(java.awt.Color.DARK_GRAY);
+                } else {
+                    setText(value.toString());
+                    setForeground(java.awt.Color.BLACK);
+                }
+            }
+        };
+        tblListaEstudiante.getColumnModel().getColumn(3).setCellRenderer(placeholder);
+        tblListaEstudiante.getColumnModel().getColumn(4).setCellRenderer(placeholder);
     }
     
     private void btnFlatLafDocente(javax.swing.JButton btn, String texto){
@@ -135,7 +154,7 @@ public class VentanaDocente extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 611, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 604, Short.MAX_VALUE)
                 .addGroup(pnlBarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(lblNomApe))
@@ -157,32 +176,25 @@ public class VentanaDocente extends javax.swing.JFrame {
         );
 
         pnlPanelSuperior.setBackground(java.awt.Color.lightGray);
-        pnlPanelSuperior.setForeground(java.awt.Color.black);
         pnlPanelSuperior.setPreferredSize(new java.awt.Dimension(1280, 90));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("Año lectivo:");
 
         lblAnioLectivo.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        lblAnioLectivo.setForeground(java.awt.Color.black);
         lblAnioLectivo.setText("2026");
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Seleccionar Curso:");
 
         cbxCurso.setBackground(java.awt.Color.gray);
-        cbxCurso.setForeground(java.awt.Color.black);
         cbxCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxCurso.addActionListener(this::cbxCursoActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("Asignatura:");
 
         lblAsignaturaSel.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        lblAsignaturaSel.setForeground(java.awt.Color.black);
         lblAsignaturaSel.setText("Selecciona un curso");
 
         javax.swing.GroupLayout pnlPanelSuperiorLayout = new javax.swing.GroupLayout(pnlPanelSuperior);
@@ -202,7 +214,7 @@ public class VentanaDocente extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAsignaturaSel)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
         pnlPanelSuperiorLayout.setVerticalGroup(
             pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +235,6 @@ public class VentanaDocente extends javax.swing.JFrame {
 
         tblListaEstudiante.setBackground(java.awt.Color.gray);
         tblListaEstudiante.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        tblListaEstudiante.setForeground(java.awt.Color.black);
         tblListaEstudiante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -232,7 +243,7 @@ public class VentanaDocente extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Cédula", "Nombre", "Apellido", "Nueva Calificación", "Observación"
+                "Cédula", "Nombre", "Apellido", "Nueva Calificación", "Comentario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -280,7 +291,7 @@ public class VentanaDocente extends javax.swing.JFrame {
         pnlInferiorLayout.setHorizontalGroup(
             pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInferiorLayout.createSequentialGroup()
-                .addContainerGap(1016, Short.MAX_VALUE)
+                .addContainerGap(1012, Short.MAX_VALUE)
                 .addComponent(btnVerHistorial)
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardarCambios)
@@ -351,7 +362,7 @@ public class VentanaDocente extends javax.swing.JFrame {
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
         // ASEGURARSE DE QUE HAY UN CURSO SELECCIONADO;
         String cbxSel = (String) cbxCurso.getSelectedItem();
-        if(cbxSel == null && cbxSel.isEmpty()){
+        if(cbxSel == null || cbxSel.isEmpty()){ //cambie and por or, sería imposible que ambas esten a la vez entonces no tira el aviso
             JOptionPane.showMessageDialog(this, "Debe seleccionar un curso.");
             return;
         }
@@ -369,15 +380,13 @@ public class VentanaDocente extends javax.swing.JFrame {
         for(int i=0; i<model.getRowCount(); i++){
             String cedula = model.getValueAt(i, 0).toString();
             Object nuevaNotaObj = model.getValueAt(i, 3);
-            Object obser = model.getValueAt(i, 4);
+            Object comentarioObj = model.getValueAt(i, 4);
             
             if(nuevaNotaObj != null && !nuevaNotaObj.toString().trim().isEmpty()){
-                String nuevaNotaStr = nuevaNotaObj.toString().trim();
-                String observacion;
-                if(obser != null && !obser.toString().trim().isEmpty()){
-                    observacion = obser.toString().trim();
-                }else{
-                    observacion = " ";
+                String nuevaNotaStr = nuevaNotaObj.toString().trim().replace(",",".");
+                String comentarioTarea = "";
+                if (comentarioObj != null) {
+                    comentarioTarea = comentarioObj.toString();
                 }
                 
                 if(!nuevaNotaStr.isEmpty()){
@@ -385,19 +394,21 @@ public class VentanaDocente extends javax.swing.JFrame {
                         double nota = Double.parseDouble(nuevaNotaStr);
                         
                         //GUARDAR LA CALIIII
-                        boolean exito = fachada.guardarCalificacion(cedula, idCurso, nota, observacion);
+                        boolean exito = fachada.guardarCalificacion(cedula, idCurso, nota, comentarioTarea);
                         if(exito){
                             notasGuardadas++;
                         }
                     }catch (NumberFormatException e){
                         JOptionPane.showMessageDialog(this, "Ingrese un número válido ");
+                    }catch (IllegalArgumentException e){
+                        JOptionPane.showMessageDialog(this, "Estudiante " + cedula + ": " + e.getMessage(), "Dato inválido", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
         }
         
         if(notasGuardadas > 0){
-            JOptionPane.showMessageDialog(this, "Se guardaron: " + notasGuardadas + "calificación/es correctamente");
+            JOptionPane.showMessageDialog(this, "Se guardaron: " + notasGuardadas + " calificación/es correctamente");
             cargarTablaEstudiantes(idCurso);
         }else{
             JOptionPane.showMessageDialog(this, "No se ingresó ninguna nueva calificación.");

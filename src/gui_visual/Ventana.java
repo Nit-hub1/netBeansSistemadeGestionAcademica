@@ -243,12 +243,18 @@ public class Ventana extends javax.swing.JFrame {
             return;
         }
         
-       Usuario userLogueado = fachada.login(ci, pw);
+       Usuario userLogueado;
+       try {
+           userLogueado = fachada.login(ci, pw);
+       } catch (IllegalArgumentException e)  {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Cédula inválida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
        
        if(userLogueado != null){
            if(userLogueado.getRol().equals("Docente")){
                VentanaDocente ventanaDocente = new VentanaDocente();
-               ventanaDocente.cargarCursoCbx(ci);
+               ventanaDocente.cargarCursoCbx(userLogueado.getCi());
                ventanaDocente.cargarNomApeDocente(userLogueado.getNombre(), userLogueado.getApellido());
                ventanaDocente.setVisible(true);
                this.dispose();

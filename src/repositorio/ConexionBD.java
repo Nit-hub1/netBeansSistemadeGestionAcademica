@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class ConexionBD {
     private static final String URL = "jdbc:mariadb://localhost:3306/bd_gestion";
     private static final String USER = "root";
-    private static final String PASSWORD = "Asdewq12";
+    private static final String PASSWORD = "";
 
     public static Connection getConexion() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

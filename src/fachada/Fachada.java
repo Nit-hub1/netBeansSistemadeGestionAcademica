@@ -59,16 +59,17 @@ public class Fachada {
                est.getCi(),
                est.getNombre(),
                est.getApellido(),
-               "-", // CALIFICACION ACTUAL UNUUUUUU
-               "-" // OBSERVACIÓN UWUUUU
+               "", // CALIFICACION ACTUAL UNUUUUUU (acá había -)
+               "" // OBSERVACIÓN UWUUUU (acá había guion)
            };
            filas.add(fila);
        }
        return filas;
    }
    
-   public boolean guardarCalificacion(String cedulaEstudiante, int idCurso, double nota, String tarea){
-       return servicioCurso.registrarNotaEstudiante(cedulaEstudiante, idCurso, nota, tarea);
+   // Recibe el comentario de la ventana y lo pasa a la lógica
+   public boolean guardarCalificacion(String cedulaEstudiante, int idCurso, double nota, String comentarioTarea){
+       return servicioCurso.registrarNotaEstudiante(cedulaEstudiante, idCurso, nota, comentarioTarea);
    }
    
    public ArrayList<String[]> obtenerHistorialCalificaciones (String cedula, int idCurso){

@@ -114,7 +114,8 @@ public class CursoPersistencia {
         return idInscripcion;
     }
     
-    public boolean guardarCalificacion (int idInscripcion, double nota, String tarea){
+    // Predefensa - el comentario del docente se guaqrda en la columna "TareaCalificada"
+    public boolean guardarCalificacion (int idInscripcion, double nota, String comentarioTarea){
         String sql = "INSERT INTO Calificacion (idCalificación, Nota, FechaNota, TareaCalificada, idInscripción) " + 
                      "VALUES ((SELECT COALESCE(MAX(c.idCalificación), 0) + 1 FROM Calificacion c), ?, CURDATE(), ?, ?)";
         
@@ -122,7 +123,7 @@ public class CursoPersistencia {
              PreparedStatement stmt = con.prepareStatement(sql)) {
             
             stmt.setDouble(1, nota);
-            stmt.setString(2, tarea);
+            stmt.setString(2, comentarioTarea);
             stmt.setInt(3, idInscripcion);
             
             return stmt.executeUpdate() > 0;

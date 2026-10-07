@@ -33,10 +33,24 @@ public class GestionCurso {
         return new ColeccionInscripciones();
     }
     
-    public boolean registrarNotaEstudiante (String cedulaEstudiante, int idCurso, double nota, String tarea){
+    public boolean registrarNotaEstudiante (String cedulaEstudiante, int idCurso, double nota, String comentarioTarea){
+        if (!esNotaValida(nota)) {
+            throw new IllegalArgumentException("La nota debe estar entre 1 y 12");
+        }
+        
+        // validaciones asociadas al comentario
+        if (comentarioTarea == null){
+            comentarioTarea="";
+        }
+        
+        comentarioTarea=comentarioTarea.trim();
+        if(!esComentarioValido(comentarioTarea)){
+            throw new IllegalArgumentException("El comentario no puede superar los 255 caracteres de largo");
+        }
+        
         int idInscripcion = cursoPersistencia.obtenerIdInscripcion(cedulaEstudiante, idCurso);
         if(idInscripcion != -1){
-            return cursoPersistencia.guardarCalificacion(idInscripcion, nota, tarea);
+            return cursoPersistencia.guardarCalificacion(idInscripcion, nota, comentarioTarea);
         }
         return false;
     }
@@ -47,4 +61,14 @@ public class GestionCurso {
         }
         return cursoPersistencia.obtenerHistorialCalificaciones(cedula, idCurso);
     }
+    
+    public static boolean esNotaValida(double nota) {
+        return (nota > 0 && nota < 13);
+    }
+    
+    // Predefensa - el comentario se guarda en TareaCalificada VARCHAR(255), por eso debo ver que el largo sea menor
+    public static boolean esComentarioValido(String comentarioTarea) {
+        return comentarioTarea.length() <= 255;
+    }
+        
 }
