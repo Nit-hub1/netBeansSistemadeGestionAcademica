@@ -57,7 +57,7 @@ public class CursoPersistencia {
         String sql = "SELECT u.Cédula, u.Nombre, u.Apellido, c.idInscripción, c.Estado, c.FechaInscripción " +
                      "FROM Cursa c " +
                      "JOIN Usuario u ON c.CedulaEstudiante = u.Cédula " +
-                     "WHERE c.idCurso = ? AND c.Estado = 'Activo'";
+                     "WHERE c.idCurso = ? AND c.Estado != 'Inactivo'";
         
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -237,5 +237,42 @@ public class CursoPersistencia {
             System.err.println("Error al consultar resultados: " + e.getMessage());
         }
         return resultados;
+    }
+    
+    // Para la resolución final...
+    public boolean actualizarEstadoInscripcion(String cedula, int idCurso, String nuevoEstado) {
+        String sql = "UPDATE Cursa SET Estado = ? WHERE CedulaEstudiante = ? AND idCurso = ?";
+    
+        try (Connection con = ConexionBD.getConexion();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+        
+            stmt.setString(1, nuevoEstado);
+            stmt.setString(2, cedula);
+            stmt.setInt(3, idCurso);
+        
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar estado del estudiante: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public String obtenerEstadoInscripcion(String cedula, int idCurso) {
+        String sql = "SELECT Estado FROM Cursa WHERE CedulaEstudiante = ? AND idCurso = ?";
+        try (Connection con = ConexionBD.getConexion();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+        
+            stmt.setString(1, cedula);
+            stmt.setInt(2, idCurso);
+        
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("Estado");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar estado: " + e.getMessage());
+        }
+        return "Activo";
     }
 }

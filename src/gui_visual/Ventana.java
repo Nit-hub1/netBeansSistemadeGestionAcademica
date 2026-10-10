@@ -258,12 +258,15 @@ public class Ventana extends javax.swing.JFrame {
                ventanaDocente.cargarNomApeDocente(userLogueado.getNombre(), userLogueado.getApellido());
                ventanaDocente.setVisible(true);
                this.dispose();
-           }
-       }else{
-           JOptionPane.showMessageDialog(this, "El usuario ingresado es incorrecto", "Error",JOptionPane.ERROR_MESSAGE);
-       }
-       
-       
+           }else if (userLogueado.getRol().equals("Estudiante")) {
+           
+            VentanaEstudiante ventanaEstudiante = new VentanaEstudiante();
+            ventanaEstudiante.cargarNomApeEstudiante(userLogueado.getNombre(), userLogueado.getApellido());
+            ventanaEstudiante.cargarTablaAsignaturas(userLogueado.getCi());
+            ventanaEstudiante.setVisible(true);
+            this.dispose();
+           }  
+       }    
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed

@@ -10,6 +10,8 @@ package logica.entidades;
  */
 public class Estudiante extends Usuario{
     
+    private int creditosDelEstudiante;
+    
     public Estudiante (String nom, String ape, String cedula, String pw){
         super(nom, ape, cedula, pw);
     }

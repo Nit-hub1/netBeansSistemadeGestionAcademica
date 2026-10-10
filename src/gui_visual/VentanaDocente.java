@@ -5,6 +5,7 @@
 package gui_visual;
 import fachada.Fachada;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,6 +25,7 @@ public class VentanaDocente extends javax.swing.JFrame {
         fachada = new Fachada();
         btnFlatLafDocente(btnGuardarCambios, "Guardar Cambios");
         btnFlatLafDocente(btnVerHistorial, "Ver Historial");
+        btnFlatLafDocente(btnResFinal, "Res. Final");
         configurarPlaceholderTabla(); // el que configura - 
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -116,10 +118,12 @@ public class VentanaDocente extends javax.swing.JFrame {
         pnlInferior = new javax.swing.JPanel();
         btnGuardarCambios = new javax.swing.JButton();
         btnVerHistorial = new javax.swing.JButton();
+        btnResFinal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnlVentana.setBackground(java.awt.Color.lightGray);
+        pnlVentana.setForeground(java.awt.Color.black);
         pnlVentana.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         pnlBarraSuperior.setBackground(java.awt.Color.black);
@@ -178,13 +182,17 @@ public class VentanaDocente extends javax.swing.JFrame {
         pnlPanelSuperior.setBackground(java.awt.Color.lightGray);
         pnlPanelSuperior.setPreferredSize(new java.awt.Dimension(1280, 90));
 
+        jLabel4.setBackground(java.awt.Color.black);
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("Año lectivo:");
 
         lblAnioLectivo.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        lblAnioLectivo.setForeground(java.awt.Color.black);
         lblAnioLectivo.setText("2026");
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Seleccionar Curso:");
 
         cbxCurso.setBackground(java.awt.Color.gray);
@@ -192,9 +200,11 @@ public class VentanaDocente extends javax.swing.JFrame {
         cbxCurso.addActionListener(this::cbxCursoActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("Asignatura:");
 
         lblAsignaturaSel.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        lblAsignaturaSel.setForeground(java.awt.Color.black);
         lblAsignaturaSel.setText("Selecciona un curso");
 
         javax.swing.GroupLayout pnlPanelSuperiorLayout = new javax.swing.GroupLayout(pnlPanelSuperior);
@@ -206,15 +216,15 @@ public class VentanaDocente extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAnioLectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cbxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAsignaturaSel)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addContainerGap(494, Short.MAX_VALUE))
         );
         pnlPanelSuperiorLayout.setVerticalGroup(
             pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,12 +296,19 @@ public class VentanaDocente extends javax.swing.JFrame {
         btnVerHistorial.setText("Ver Historial");
         btnVerHistorial.addActionListener(this::btnVerHistorialActionPerformed);
 
+        btnResFinal.setBackground(java.awt.Color.darkGray);
+        btnResFinal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnResFinal.setText("Res. Final");
+        btnResFinal.addActionListener(this::btnResFinalActionPerformed);
+
         javax.swing.GroupLayout pnlInferiorLayout = new javax.swing.GroupLayout(pnlInferior);
         pnlInferior.setLayout(pnlInferiorLayout);
         pnlInferiorLayout.setHorizontalGroup(
             pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInferiorLayout.createSequentialGroup()
-                .addContainerGap(1012, Short.MAX_VALUE)
+                .addContainerGap(911, Short.MAX_VALUE)
+                .addComponent(btnResFinal)
+                .addGap(18, 18, 18)
                 .addComponent(btnVerHistorial)
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardarCambios)
@@ -303,7 +320,8 @@ public class VentanaDocente extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVerHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVerHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnResFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -429,10 +447,60 @@ public class VentanaDocente extends javax.swing.JFrame {
             return;
         }
         int idCurso = Integer.parseInt(itemCb.toString().split(" - ")[0].trim());
+        String estadoActual = fachada.obtenerEstadoInscripcion(cedula, idCurso);
         
-        HistorialCalificacion historial = new HistorialCalificacion(this, cedula, nombreCompleto, "Activo", idCurso, fachada);
+        HistorialCalificacion historial = new HistorialCalificacion(this, cedula, nombreCompleto, estadoActual, idCurso, fachada);
         historial.setVisible(true);
     }//GEN-LAST:event_btnVerHistorialActionPerformed
+
+    private void btnResFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResFinalActionPerformed
+        int fila = tblListaEstudiante.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un estudiante de la tabla.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String cedula = tblListaEstudiante.getValueAt(fila, 0).toString();
+        String nombre = tblListaEstudiante.getValueAt(fila, 1).toString() + " " + tblListaEstudiante.getValueAt(fila, 2).toString();
+    
+        if (cbxCurso.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un curso en el desplegable.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String seleccionCurso = (String) cbxCurso.getSelectedItem();
+        String[] partes = seleccionCurso.split(" - ");
+        int idCurso = Integer.parseInt(partes[0].trim()); 
+
+        String[] opcionesEstado = {"Aprobado", "Reprobado", "Activo"};
+        JComboBox<String> cbxEstados = new JComboBox<>(opcionesEstado);
+
+        Object[] mensaje = {
+            "Estudiante: " + nombre + " (CI: " + cedula + ")",
+            "Seleccione el resultado final del curso:",
+            cbxEstados
+        };
+
+        int opcion = JOptionPane.showConfirmDialog(
+            this, 
+            mensaje, 
+            "Resultado Final del Estudiante", 
+            JOptionPane.OK_CANCEL_OPTION, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opcion == JOptionPane.OK_OPTION) {
+            String nuevoEstado = (String) cbxEstados.getSelectedItem();
+        
+            boolean exito = fachada.actualizarEstadoEstudiante(cedula, idCurso, nuevoEstado);
+        
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "El estado de " + nombre + " fue actualizado a '" + nuevoEstado + "'.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnResFinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -447,6 +515,7 @@ public class VentanaDocente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnResFinal;
     private javax.swing.JButton btnVerHistorial;
     private javax.swing.JComboBox<String> cbxCurso;
     private javax.swing.JLabel jLabel1;

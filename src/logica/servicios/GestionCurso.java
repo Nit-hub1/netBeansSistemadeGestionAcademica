@@ -63,7 +63,7 @@ public class GestionCurso {
     }
     
     public static boolean esNotaValida(double nota) {
-        return (nota > 0 && nota < 13);
+        return (nota > 0 && nota < 12);
     }
     
     // Predefensa - el comentario se guarda en TareaCalificada VARCHAR(255), por eso debo ver que el largo sea menor
@@ -101,5 +101,14 @@ public class GestionCurso {
         ColeccionResultados resultados = cursoPersistencia.obtenerTodosLosResultados();
         return resultados.calcularPromedioSimple();
     }
-        
+    
+    //RESFINAL
+    
+    public boolean actualizarEstadoEstudiante(String cedula, int idCurso, String nuevoEstado) {
+        return cursoPersistencia.actualizarEstadoInscripcion(cedula, idCurso, nuevoEstado);
+    }
+    
+    public String obtenerEstadoInscripcion(String cedula, int idCurso){
+        return cursoPersistencia.obtenerEstadoInscripcion(cedula, idCurso);
+    }
 }

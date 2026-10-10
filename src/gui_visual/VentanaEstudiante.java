@@ -4,6 +4,10 @@
  */
 package gui_visual;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import fachada.Fachada;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Nit
@@ -11,12 +15,47 @@ package gui_visual;
 public class VentanaEstudiante extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaEstudiante.class.getName());
-
+    private Fachada fachada;
+    private String ciEstu;
     /**
      * Creates new form VentanaEstudiante
      */
     public VentanaEstudiante() {
         initComponents();
+        fachada = new Fachada();
+        btnFlatLafEstudiante(btnBajaMateria, "Darse de baja");
+        btnFlatLafEstudiante(btnVerHistorial, "Ver Historial");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+    }
+    
+    private void btnFlatLafEstudiante(javax.swing.JButton btn, String texto){
+        btn.setText(texto);
+        btn.setBackground(new java.awt.Color(50, 50, 50));
+        btn.setForeground(java.awt.Color.WHITE);
+        btn.putClientProperty(com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE, com.formdev.flatlaf.FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        btn.putClientProperty(com.formdev.flatlaf.FlatClientProperties.STYLE, "arc: 999");
+    }
+    
+    public void cargarTablaAsignaturas(String ciEstudiante) {
+        ciEstu = ciEstudiante;
+        DefaultTableModel model = (DefaultTableModel) tblAsignaturas.getModel();
+        model.setRowCount(0);
+
+        ArrayList<String[]> lista = fachada.obtenerAsignaturasEstudiante(ciEstudiante);
+
+        if (lista != null) {
+            for (int i = 0; i < lista.size(); i++) {
+                String[] fila = lista.get(i);
+                model.addRow(new Object[]{fila[0], fila[1], fila[2], fila[3], fila[4], fila[5]});
+            }
+        }
+        int totalCreditos = fachada.obtenerTotalCreditosAprobados(ciEstudiante);
+        lblCreditosAprob.setText(String.valueOf(totalCreditos));
+    }
+    
+     public void cargarNomApeEstudiante (String nom, String ape){
+        lblNomApe.setText(nom + " " + ape);
     }
 
     /**
@@ -28,47 +67,358 @@ public class VentanaEstudiante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlVentana = new javax.swing.JPanel();
+        pnlBarraSuperior = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblNomApe = new javax.swing.JLabel();
+        pnlPanelSuperior = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        lblAnioLectivo = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblCreditosAprob = new javax.swing.JLabel();
+        pnlCentral = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAsignaturas = new javax.swing.JTable();
+        pnlInferior = new javax.swing.JPanel();
+        btnVerHistorial = new javax.swing.JButton();
+        btnBajaMateria = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pnlVentana.setBackground(java.awt.Color.lightGray);
+        pnlVentana.setPreferredSize(new java.awt.Dimension(1280, 720));
+
+        pnlBarraSuperior.setBackground(java.awt.Color.black);
+        pnlBarraSuperior.setPreferredSize(new java.awt.Dimension(1280, 80));
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 70)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
+        jLabel1.setText("SGA");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
+        jLabel2.setText("SISTEMA DE GESTIÓN ACADÉMICA");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setText("Bienvenido/a Estudiante");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblNomApe.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        lblNomApe.setForeground(java.awt.Color.white);
+        lblNomApe.setText("\"Nombre Apellido\"");
+        lblNomApe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout pnlBarraSuperiorLayout = new javax.swing.GroupLayout(pnlBarraSuperior);
+        pnlBarraSuperior.setLayout(pnlBarraSuperiorLayout);
+        pnlBarraSuperiorLayout.setHorizontalGroup(
+            pnlBarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBarraSuperiorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 587, Short.MAX_VALUE)
+                .addGroup(pnlBarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(lblNomApe))
+                .addGap(86, 86, 86))
+        );
+        pnlBarraSuperiorLayout.setVerticalGroup(
+            pnlBarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBarraSuperiorLayout.createSequentialGroup()
+                .addGroup(pnlBarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(0, 4, Short.MAX_VALUE))
+            .addGroup(pnlBarraSuperiorLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNomApe)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlPanelSuperior.setBackground(java.awt.Color.lightGray);
+        pnlPanelSuperior.setForeground(java.awt.Color.black);
+        pnlPanelSuperior.setPreferredSize(new java.awt.Dimension(1280, 90));
+
+        jLabel4.setBackground(java.awt.Color.black);
+        jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.black);
+        jLabel4.setText("Año lectivo:");
+
+        lblAnioLectivo.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        lblAnioLectivo.setForeground(java.awt.Color.black);
+        lblAnioLectivo.setText("2026");
+
+        jLabel5.setBackground(java.awt.Color.black);
+        jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.black);
+        jLabel5.setText("Total de creditos aprobados:");
+
+        lblCreditosAprob.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        lblCreditosAprob.setForeground(java.awt.Color.black);
+        lblCreditosAprob.setText("0");
+
+        javax.swing.GroupLayout pnlPanelSuperiorLayout = new javax.swing.GroupLayout(pnlPanelSuperior);
+        pnlPanelSuperior.setLayout(pnlPanelSuperiorLayout);
+        pnlPanelSuperiorLayout.setHorizontalGroup(
+            pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPanelSuperiorLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPanelSuperiorLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCreditosAprob, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlPanelSuperiorLayout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAnioLectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(944, Short.MAX_VALUE))
+        );
+        pnlPanelSuperiorLayout.setVerticalGroup(
+            pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPanelSuperiorLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblAnioLectivo))
+                .addGap(18, 18, 18)
+                .addGroup(pnlPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblCreditosAprob))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlCentral.setBackground(java.awt.Color.black);
+        pnlCentral.setPreferredSize(new java.awt.Dimension(1280, 450));
+
+        tblAsignaturas.setBackground(java.awt.Color.gray);
+        tblAsignaturas.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
+        tblAsignaturas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Asignatura", "Periodo", "Estado", "Creditos", "idInscripción", "idCurso"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblAsignaturas);
+
+        javax.swing.GroupLayout pnlCentralLayout = new javax.swing.GroupLayout(pnlCentral);
+        pnlCentral.setLayout(pnlCentralLayout);
+        pnlCentralLayout.setHorizontalGroup(
+            pnlCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCentralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1268, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlCentralLayout.setVerticalGroup(
+            pnlCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCentralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pnlInferior.setBackground(java.awt.Color.lightGray);
+        pnlInferior.setPreferredSize(new java.awt.Dimension(1280, 82));
+
+        btnVerHistorial.setBackground(java.awt.Color.darkGray);
+        btnVerHistorial.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVerHistorial.setText("Ver Historial");
+        btnVerHistorial.addActionListener(this::btnVerHistorialActionPerformed);
+
+        btnBajaMateria.setBackground(java.awt.Color.darkGray);
+        btnBajaMateria.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBajaMateria.setText("Darse de baja");
+        btnBajaMateria.addActionListener(this::btnBajaMateriaActionPerformed);
+
+        javax.swing.GroupLayout pnlInferiorLayout = new javax.swing.GroupLayout(pnlInferior);
+        pnlInferior.setLayout(pnlInferiorLayout);
+        pnlInferiorLayout.setHorizontalGroup(
+            pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInferiorLayout.createSequentialGroup()
+                .addContainerGap(1035, Short.MAX_VALUE)
+                .addComponent(btnBajaMateria)
+                .addGap(18, 18, 18)
+                .addComponent(btnVerHistorial)
+                .addGap(22, 22, 22))
+        );
+        pnlInferiorLayout.setVerticalGroup(
+            pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInferiorLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVerHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBajaMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlVentanaLayout = new javax.swing.GroupLayout(pnlVentana);
+        pnlVentana.setLayout(pnlVentanaLayout);
+        pnlVentanaLayout.setHorizontalGroup(
+            pnlVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVentanaLayout.createSequentialGroup()
+                .addGroup(pnlVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBarraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlPanelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlVentanaLayout.setVerticalGroup(
+            pnlVentanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVentanaLayout.createSequentialGroup()
+                .addComponent(pnlBarraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlPanelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlVentana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlVentana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVerHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialActionPerformed
+        int fila = tblAsignaturas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una asignatura para ver las calificaciones.");
+            return;
+        }
+
+        int idCurso = Integer.parseInt(tblAsignaturas.getModel().getValueAt(fila, 5).toString());
+
+        String nombreEstudiante = lblNomApe.getText();
+        String estadoActual = fachada.obtenerEstadoInscripcion(ciEstu, idCurso);
+        
+        HistorialCalificacion vHistorial = new HistorialCalificacion(this, ciEstu, nombreEstudiante, estadoActual, idCurso, fachada);
+        vHistorial.setVisible(true);
+    }//GEN-LAST:event_btnVerHistorialActionPerformed
+
+    private void btnBajaMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaMateriaActionPerformed
+        int fila = tblAsignaturas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Seleccione una asignatura de la tabla para darse de baja.", 
+                "Aviso", 
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        String asignatura = tblAsignaturas.getValueAt(fila, 0).toString();
+        String estadoAsignatura = tblAsignaturas.getValueAt(fila, 2).toString();
+
+        if ("Cerrado".equalsIgnoreCase(estadoAsignatura)) {
+        JOptionPane.showMessageDialog(
+            this, 
+            "No puede darse de baja de la asignatura '" + asignatura + "' porque ya se encuentra cerrada.", 
+            "Acción no permitida", 
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
+        }
+
+        int idInscripcion = Integer.parseInt(tblAsignaturas.getValueAt(fila, 4).toString());
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro de que desea darse de baja de la asignatura: " + asignatura + "?",
+            "Confirmar Baja",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            boolean exito = fachada.darseDeBaja(idInscripcion);
+        
+            if (exito) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Te has dado de baja correctamente de " + asignatura + ".", 
+                    "Baja Exitosa", 
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+
+                cargarTablaAsignaturas(ciEstu);
+            } else {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Ocurrió un error al procesar la baja. Intente nuevamente.", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    
+    }//GEN-LAST:event_btnBajaMateriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        
+        com.formdev.flatlaf.FlatLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new VentanaEstudiante().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBajaMateria;
+    private javax.swing.JButton btnVerHistorial;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAnioLectivo;
+    private javax.swing.JLabel lblCreditosAprob;
+    private javax.swing.JLabel lblNomApe;
+    private javax.swing.JPanel pnlBarraSuperior;
+    private javax.swing.JPanel pnlCentral;
+    private javax.swing.JPanel pnlInferior;
+    private javax.swing.JPanel pnlPanelSuperior;
+    private javax.swing.JPanel pnlVentana;
+    private javax.swing.JTable tblAsignaturas;
     // End of variables declaration//GEN-END:variables
+
 }

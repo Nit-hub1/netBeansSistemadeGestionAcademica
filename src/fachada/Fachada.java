@@ -11,14 +11,17 @@ import logica.entidades.*;
  * @author iamx2
  */
 public class Fachada {
-    // Clase de estudiante
+    // Clase de usuario
     private GestionUsuario servicioUsuario;
     // Clase de curso
     private GestionCurso servicioCurso;
+    // Clase de estudiante
+    private GestionEstudiante servicioEstudiante;
 
     public Fachada(){
         servicioUsuario = new GestionUsuario();
         servicioCurso = new GestionCurso();
+        servicioEstudiante = new GestionEstudiante();
     }
     
     // USUARIOSSS
@@ -116,4 +119,25 @@ public class Fachada {
     }
     
     // cuando tengas q mostrar usa algo tipo lblPromedio.setText(fachada.promedioPonderadoEstudiante(cedula));
+    
+    //ESTUDIANTESSSSSS :V
+    public boolean darseDeBaja(int idInscripcion) {
+        return servicioEstudiante.darseDeBaja(idInscripcion);
+    }
+    
+    public ArrayList<String[]> obtenerAsignaturasEstudiante(String ciEstudiante) {
+        return servicioEstudiante.obtenerAsignaturasEstudiante(ciEstudiante);
+    }
+    
+    public int obtenerTotalCreditosAprobados(String ciEstudiante) {
+        return servicioEstudiante.obtenerTotalCreditosAprobados(ciEstudiante);
+    }
+    
+    public boolean actualizarEstadoEstudiante(String cedula, int idCurso, String nuevoEstado) {
+        return servicioCurso.actualizarEstadoEstudiante(cedula, idCurso, nuevoEstado);
+    }
+    
+    public String obtenerEstadoInscripcion(String cedula, int idCurso){
+        return servicioCurso.obtenerEstadoInscripcion(cedula, idCurso);
+    }
 }
