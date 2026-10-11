@@ -63,7 +63,7 @@ public class GestionCurso {
     }
     
     public static boolean esNotaValida(double nota) {
-        return (nota > 0 && nota < 12);
+        return (nota >= 1 && nota <= 12);
     }
     
     // Predefensa - el comentario se guarda en TareaCalificada VARCHAR(255), por eso debo ver que el largo sea menor
