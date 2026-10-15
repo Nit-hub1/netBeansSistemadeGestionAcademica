@@ -140,4 +140,10 @@ public class Fachada {
     public String obtenerEstadoInscripcion(String cedula, int idCurso){
         return servicioCurso.obtenerEstadoInscripcion(cedula, idCurso);
     }
+
+    public boolean inscribirEstudiante(String ci, int idCurso) {
+        return servicioCurso.inscribirEstudiante(cedula, idCurso);
+    }
+
+    
 }

@@ -275,4 +275,19 @@ public class CursoPersistencia {
         }
         return "Activo";
     }
+    
+    public boolean inscribirEstudiante(String cedula, int idCurso) {
+    String sql = "INSERT INTO Cursa (idInscripción, CedulaEstudiante, idCurso, FechaInscripción, Estado) " +
+                 "SELECT COALESCE(MAX(idInscripción), 0) + 1, ?, ?, CURDATE(), 'Activo' FROM Cursa";
+    try (Connection con = ConexionBD.getConexion();
+         PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setString(1, cedula);
+        stmt.setInt(2, idCurso);
+        return stmt.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al inscribir estudiante: " + e.getMessage());
+        return false;
+        }
+    }
+
 }

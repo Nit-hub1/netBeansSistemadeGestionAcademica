@@ -119,11 +119,11 @@ public class VentanaDocente extends javax.swing.JFrame {
         btnGuardarCambios = new javax.swing.JButton();
         btnVerHistorial = new javax.swing.JButton();
         btnResFinal = new javax.swing.JButton();
+        btnRegEst = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnlVentana.setBackground(java.awt.Color.lightGray);
-        pnlVentana.setForeground(java.awt.Color.black);
         pnlVentana.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         pnlBarraSuperior.setBackground(java.awt.Color.black);
@@ -184,15 +184,12 @@ public class VentanaDocente extends javax.swing.JFrame {
 
         jLabel4.setBackground(java.awt.Color.black);
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
         jLabel4.setText("Año lectivo:");
 
         lblAnioLectivo.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        lblAnioLectivo.setForeground(java.awt.Color.black);
         lblAnioLectivo.setText("2026");
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Seleccionar Curso:");
 
         cbxCurso.setBackground(java.awt.Color.gray);
@@ -200,11 +197,9 @@ public class VentanaDocente extends javax.swing.JFrame {
         cbxCurso.addActionListener(this::cbxCursoActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("Asignatura:");
 
         lblAsignaturaSel.setFont(new java.awt.Font("Yu Gothic", 1, 15)); // NOI18N
-        lblAsignaturaSel.setForeground(java.awt.Color.black);
         lblAsignaturaSel.setText("Selecciona un curso");
 
         javax.swing.GroupLayout pnlPanelSuperiorLayout = new javax.swing.GroupLayout(pnlPanelSuperior);
@@ -301,12 +296,19 @@ public class VentanaDocente extends javax.swing.JFrame {
         btnResFinal.setText("Res. Final");
         btnResFinal.addActionListener(this::btnResFinalActionPerformed);
 
+        btnRegEst.setBackground(java.awt.Color.darkGray);
+        btnRegEst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegEst.setText("Agregar Estudiante");
+        btnRegEst.addActionListener(this::btnRegEstActionPerformed);
+
         javax.swing.GroupLayout pnlInferiorLayout = new javax.swing.GroupLayout(pnlInferior);
         pnlInferior.setLayout(pnlInferiorLayout);
         pnlInferiorLayout.setHorizontalGroup(
             pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInferiorLayout.createSequentialGroup()
-                .addContainerGap(911, Short.MAX_VALUE)
+                .addContainerGap(755, Short.MAX_VALUE)
+                .addComponent(btnRegEst)
+                .addGap(18, 18, 18)
                 .addComponent(btnResFinal)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerHistorial)
@@ -321,7 +323,8 @@ public class VentanaDocente extends javax.swing.JFrame {
                 .addGroup(pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnResFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnResFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegEst, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -502,6 +505,10 @@ public class VentanaDocente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnResFinalActionPerformed
 
+    private void btnRegEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegEstActionPerformed
+        VentanaRegistroCurso registrar = new VentanaRegistroCurso(this, fachada, "11111111");
+        registrar.setVisible(true);    }//GEN-LAST:event_btnRegEstActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -515,6 +522,7 @@ public class VentanaDocente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnRegEst;
     private javax.swing.JButton btnResFinal;
     private javax.swing.JButton btnVerHistorial;
     private javax.swing.JComboBox<String> cbxCurso;

@@ -111,4 +111,20 @@ public class GestionCurso {
     public String obtenerEstadoInscripcion(String cedula, int idCurso){
         return cursoPersistencia.obtenerEstadoInscripcion(cedula, idCurso);
     }
+    
+    public boolean inscribirEstudiante(String cedula, int idCurso){
+        if (cedula == null || cedula.trim().isEmpty() || idCurso <= 0) {
+            throw new IllegalArgumentException("Datos de inscripción incompletos.");
+        }
+        cedula = cedula.trim();
+        int idInscripcion = cursoPersistencia.obtenerIdInscripcion(cedula, idCurso);
+        if (idInscripcion != -1) {
+            if ("Inactivo".equals(cursoPersistencia.obtenerEstadoInscripcion(cedula, idCurso))) {
+                return cursoPersistencia.actualizarEstadoInscripcion(cedula, idCurso, "Activo");
+            }
+            throw new IllegalArgumentException("El estudiante ya está inscripto en este curso.");
+        }
+        return cursoPersistencia.inscribirEstudiante(cedula, idCurso);
+    }
+
 }
