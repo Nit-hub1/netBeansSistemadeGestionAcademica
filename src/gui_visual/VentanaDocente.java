@@ -17,6 +17,8 @@ public class VentanaDocente extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaDocente.class.getName());
     private Fachada fachada;
+    private String ciDocente;
+
     /**
      * Creates new form VentanaDocente
      */
@@ -58,6 +60,7 @@ public class VentanaDocente extends javax.swing.JFrame {
     }
     
     public void cargarCursoCbx (String ciDocente){
+        this.ciDocente = ciDocente;
         cbxCurso.removeAllItems();
         
         ArrayList<String> cursos = fachada.nombresCursosDocente(ciDocente);
@@ -74,6 +77,15 @@ public class VentanaDocente extends javax.swing.JFrame {
             }
         }
     }
+    
+    // Para luego de agregar un estudiante
+    public void refrescarTabla() {
+        Object sel = cbxCurso.getSelectedItem();
+        if (sel != null) {
+            cargarTablaEstudiantes(Integer.parseInt(sel.toString().split(" - ")[0].trim()));
+        }
+    }
+
     
     public void cargarNomApeDocente (String nom, String ape){
         lblNomApe.setText(nom + " " + ape);
@@ -506,8 +518,10 @@ public class VentanaDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResFinalActionPerformed
 
     private void btnRegEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegEstActionPerformed
-        VentanaRegistroCurso registrar = new VentanaRegistroCurso(this, fachada, "11111111");
-        registrar.setVisible(true);    }//GEN-LAST:event_btnRegEstActionPerformed
+        VentanaRegistroCurso registrar = new VentanaRegistroCurso(this, fachada, ciDocente);
+        registrar.seleccionarCurso(cbxCurso.getSelectedItem());
+        registrar.setVisible(true);
+}    }//GEN-LAST:event_btnRegEstActionPerformed
 
     /**
      * @param args the command line arguments

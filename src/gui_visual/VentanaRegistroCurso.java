@@ -7,6 +7,9 @@ import fachada.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+    VentanaRegistroCurso(VentanaDocente aThis, Fachada fachada, String ciDocente) {
+    }
 /**
  *
  * @author iamx2
@@ -314,19 +317,13 @@ public class VentanaRegistroCurso extends javax.swing.JFrame {
 
     public void cargarCursoCbx (String ciDocente){
         cbxCurso1.removeAllItems();
-        
         ArrayList<String> cursos = fachada.nombresCursosDocente(ciDocente);
-        if(cursos != null){
-            for(int i = 0; i < cursos.size(); i++ ){
-                String nombreCurso = cursos.get(i);
-                cbxCurso.addItem(nombreCurso);
-            }
-            if(cbxCurso.getItemCount()>0){
-                String primeraSeleccion = (String) cbxCurso.getItemAt(0);
-                String[] partes = primeraSeleccion.split(" - ");
-                int idPrimerCurso = Integer.parseInt(partes[0].trim());
+        if (cursos != null) {
+            for (int i = 0; i < cursos.size(); i++) {
+                cbxCurso1.addItem(cursos.get(i));
             }
         }
+    }
     }
 
     public void seleccionarCurso(Object curso) {

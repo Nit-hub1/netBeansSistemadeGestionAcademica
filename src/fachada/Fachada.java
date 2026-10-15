@@ -142,7 +142,7 @@ public class Fachada {
     }
 
     public boolean inscribirEstudiante(String ci, int idCurso) {
-        return servicioCurso.inscribirEstudiante(cedula, idCurso);
+        return servicioCurso.inscribirEstudiante(ci, idCurso);
     }
 
     
