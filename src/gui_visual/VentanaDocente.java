@@ -521,7 +521,7 @@ public class VentanaDocente extends javax.swing.JFrame {
         VentanaRegistroCurso registrar = new VentanaRegistroCurso(this, fachada, ciDocente);
         registrar.seleccionarCurso(cbxCurso.getSelectedItem());
         registrar.setVisible(true);
-}    }//GEN-LAST:event_btnRegEstActionPerformed
+    }//GEN-LAST:event_btnRegEstActionPerformed
 
     /**
      * @param args the command line arguments

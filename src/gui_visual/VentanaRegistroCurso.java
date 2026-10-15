@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-    VentanaRegistroCurso(VentanaDocente aThis, Fachada fachada, String ciDocente) {
-    }
 /**
  *
  * @author iamx2
@@ -323,7 +321,6 @@ public class VentanaRegistroCurso extends javax.swing.JFrame {
                 cbxCurso1.addItem(cursos.get(i));
             }
         }
-    }
     }
 
     public void seleccionarCurso(Object curso) {
